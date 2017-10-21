@@ -3,15 +3,11 @@ $green: #090;
 $blue: #00f;
 $radius: 30px;
 
-@font-face {
-  font-family: 'Lato';
-  src: url('./fonts/Lato-Regular.ttf');
-}
+@import "../../node_modules/kickstart-node/css/kickstart";
 
-p {
-  font-family: Lato, sans-serif;
-  font-size: 14px;
-  line-height: 1.75em;
+body {
+  font-family: 'League Gothic Condensed';
+  font-size: 20px;
 }
 
 a,
@@ -26,13 +22,14 @@ div {
   margin: 0 auto;
   margin-top: 30px;
   padding: 20px 40px;
-  font-size: 12px;
   background-color: #eee;
   box-shadow: 5px 5px 5px #ccc;
   border-radius: $radius;
 
   h1 {
-    font-family: 'Bungee Shade', cursive;
+
+    font-family: 'League Gothic', 'bold';
+    font-size: 3em;
     color: $green;
   }
 

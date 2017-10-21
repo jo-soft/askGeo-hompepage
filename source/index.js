@@ -1,7 +1,7 @@
-// import $ from 'jquery'; Before using jQuery, install it with `npm install --save jquery`
-import './more-javascript/more.js';
 import './style/style.scss';
 import './style/style.css';
+import '../node_modules/kickstart-node/js/kickstart';
+
 
 const saySomething = (something) => {
   console.log(something); // eslint-disable-line no-console
