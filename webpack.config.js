@@ -1,49 +1,112 @@
-require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const processHTMLPages = require('./processHTMLHelper.js');
-const autoprefixer = require('autoprefixer');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const extractCSS = new ExtractTextPlugin('style.css');
-const plugins = [
-  extractCSS,
-].concat(processHTMLPages());
+// Is the current build a development build
+const IS_DEV = (process.env.NODE_ENV === 'dev');
 
+const dirNode = 'node_modules';
+const dirApp = path.join(__dirname, 'app');
+
+const dirAssets = path.join(__dirname, 'assets');
+const dirKickstarterStyles = path.join(__dirname, 'node_modules/kickstart-node/lib-core/sass/');
+
+const appHtmlTitle = "Hitchhiker's Guide Around The World";
+const appHtmlDescription = `Official Homepage of the ${appHtmlTitle} app`;
+/**
+ * Webpack Configuration
+ */
 module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    './source/index.js',
-  ],
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loaders: ['babel'],
-      },
-      {
-        test: [/\.scss$/i, /\.css$/],
-        loader: extractCSS.extract('style-loader', 'css?-minimize!postcss!sass'),
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
-        query: {
-          name: '[path][name].[ext]',
-          context: './source',
-        },
-      },
+    entry: {
+        vendor: [
+            'lodash'
+        ],
+        bundle: path.join(dirApp, 'index')
+    },
+    resolve: {
+        modules: [
+            dirNode,
+            dirApp,
+            dirAssets
+        ]
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            IS_DEV: IS_DEV
+        }),
+
+        new webpack.ProvidePlugin({
+            // lodash
+            '_': 'lodash'
+        }),
+
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'index.ejs'),
+            title: appHtmlTitle,
+            description: appHtmlDescription
+        })
     ],
-  },
-  postcss: [autoprefixer()],
-  resolve: {
-    extensions: ['', '.js', '.es6'],
-  },
-  output: {
-    path: './build',
-    filename: 'index.js',
-  },
-  devServer: {
-    contentBase: './source',
-  },
-  plugins,
+    module: {
+        rules: [
+            // BABEL
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /(node_modules)/,
+                options: {
+                    compact: true
+                }
+            },
+
+            // STYLES
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: IS_DEV
+                        }
+                    },
+                ]
+            },
+
+            // CSS / SASS
+            {
+                test: /\.scss/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: IS_DEV
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: IS_DEV,
+                            includePaths: [dirAssets, dirKickstarterStyles]
+                        }
+                    }
+                ]
+            },
+
+            // EJS
+            {
+                test: /\.ejs$/,
+                loader: 'ejs-loader'
+            },
+
+            // IMAGES
+            {
+                test: /\.(jpe*g|png|gif)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
+            }
+        ]
+    }
 };
