@@ -1,0 +1,136 @@
+@import "../../node_modules/kickstart-node/lib/sass/style";
+@import "variables";
+@import "../../node_modules/font-awesome/scss/font-awesome";
+
+$headerHeight: 100px;
+
+body{
+  color: $primary-color;
+}
+
+.main-nav {
+  @include navbar();
+  height: $headerHeight;
+  margin-bottom: 0;
+  background-color: transparent;
+  z-index: 1;
+
+  // overwrite default hover behavior
+  & nav > ul > li {
+    & > a:not([role=button]):hover {
+      background-color: transparent;
+      border: none;
+      .active {
+        background-color: transparent;
+        border: none;
+      }
+    }
+  }
+}
+
+.main-nav {
+  border: none;
+  border-bottom: mix(black, $primary-color, 60%) solid;
+
+  &__logo{
+    height: calc(0.6 * #{$headerHeight});
+  }
+
+  .fa, #title{
+    @include heading-md();
+    font-size: calc(0.4 * #{$headerHeight});
+    font-variant: all-small-caps;
+    font-weight: bolder;
+    color: $primary-color;
+  }
+
+  #main_menu, #main_menu .open {
+
+    :hover{
+      color: mix(white, $primary-color, 20%);
+    }
+
+    .menu-item{
+      &:hover{
+        background-color: transparent;
+        border: none;
+      }
+    }
+
+    ul{
+      border: mix(black, $primary-color, 60%) solid;
+      background-color: mix(white, $primary-color, 30%);
+      opacity: 0.5;
+
+    }
+
+    a {
+      background-color: unset;
+      dolor: invert($primary-color);
+
+      &:hover{
+        dolor: mix(black, invert($primary-color), 30%);
+      }
+    }
+  }
+}
+
+main{
+  // ensure main always lays begind the nav bar.
+  position: absolute;
+  z-index: -1;
+  // move main upwards behind the nav
+  margin-top: -$headerHeight;
+
+  .landing {
+    height: 100vh;
+    &__wrapper {
+      width: 100vw;
+      height: 100%;
+    }
+  }
+}
+
+main{
+  .landing{
+    background-color: $primary-color;
+    &__wrapper{
+      opacity: 0.8;
+      background-image: url('../images/landing_hanoi.jpg');
+      background-size: 100% 100%;
+      filter: grayscale(30%)
+    }
+
+    &__content{
+      @include container();
+      background-color: transparent;
+      border: none;
+
+      padding-top: $headerHeight;
+      height: calc(100vh - #{$headerHeight});
+      display: flex;
+      justify-content: center;
+
+      :first-child{
+        margin-top: auto;
+      }
+
+      h1, h2{
+        color: $primary-color;
+      }
+      h1{
+        margin-bottom: 5vh;
+      }
+
+      div{
+        @include row();
+        display: flex;
+        justify-content: center;
+      }
+
+      &_lower{
+        margin-top: auto;
+      }
+    }
+  }
+}
