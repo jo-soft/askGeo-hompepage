@@ -10,6 +10,7 @@ const dirApp = path.join(__dirname, 'app');
 
 const dirAssets = path.join(__dirname, 'assets');
 const dirKickstarterStyles = path.join(__dirname, 'node_modules/kickstart-node/lib-core/sass/');
+const dirFA = path.join(__dirname, 'node_modules/font-awesome/');
 
 const appHtmlTitle = "Hitchhiker's Guide Around The World";
 const appHtmlDescription = `Official Homepage of the ${appHtmlTitle} app`;
@@ -87,7 +88,7 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {
                             sourceMap: IS_DEV,
-                            includePaths: [dirAssets, dirKickstarterStyles]
+                            includePaths: [dirAssets, dirKickstarterStyles, dirFA]
                         }
                     }
                 ]
@@ -100,8 +101,8 @@ module.exports = {
             },
 
             // IMAGES
-            {
-                test: /\.(jpe*g|png|gif)$/,
+          {
+                test: /.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'file-loader',
                 options: {
                     name: '[path][name].[ext]'
