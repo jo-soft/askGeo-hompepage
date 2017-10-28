@@ -5,18 +5,69 @@
 $headerHeight: 100px;
 
 body{
-  color: $primary-color;
+   color: $primary-color;
 }
 
+
 .main-nav {
-  @include navbar();
+  @include navbar($layout: 'fluid');
   height: $headerHeight;
   margin-bottom: 0;
   background-color: transparent;
   z-index: 1;
+  border: none;
+  border-bottom: mix(black, $primary-color, 60%) solid;
+
+  .fa, #title {
+    line-height: 2.5rem;
+    font-size: calc(0.4 * #{$headerHeight});
+    text-transform: uppercase;
+    font-weight: bolder;
+    color: $primary-color;
+  }
+
+  #title {
+    display: none;
+    @media screen and (min-width: 480px){
+      display: inline;
+    }
+  }
+
+  nav {
+    height: 100%;
+    display: flex;
+
+  }
+
+  &__left, &__right {
+    display: flex;
+    height: 100%;
+
+    > li {
+      height: 100%;
+      display: flex;
+      align-items: center;
+       > img {
+         height: 100%;
+       }
+      > a {
+        margin-top: 0;
+        margin-bottom: 0;
+        border-top: 0;
+        border-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
 
   // overwrite default hover behavior
-  & nav > ul > li {
+  & nav > ul> li {
+    &.menu-item{
+      &:before{
+        content: unset;
+      }
+    }
     & > a:not([role=button]):hover {
       background-color: transparent;
       border: none;
@@ -28,48 +79,28 @@ body{
   }
 }
 
+
+
 .main-nav {
-  border: none;
-  border-bottom: mix(black, $primary-color, 60%) solid;
-
-  &__logo{
-    height: calc(0.6 * #{$headerHeight});
-  }
-
-  .fa, #title{
-    @include heading-md();
-    font-size: calc(0.4 * #{$headerHeight});
-    font-variant: all-small-caps;
-    font-weight: bolder;
-    color: $primary-color;
-  }
-
-  #main_menu, #main_menu .open {
-
-    :hover{
-      color: mix(white, $primary-color, 20%);
+  ul.main-nav {
+    &__left {
+      margin-right: auto;
     }
 
-    .menu-item{
-      &:hover{
-        background-color: transparent;
-        border: none;
+    &__right {
+      margin-left: auto;
+    }
+
+    &__left, &__right .open {
+
+      :hover {
+        color: mix(white, $primary-color, 20%);
       }
-    }
 
-    ul{
-      border: mix(black, $primary-color, 60%) solid;
-      background-color: mix(white, $primary-color, 30%);
-      opacity: 0.5;
-
-    }
-
-    a {
-      background-color: unset;
-      dolor: invert($primary-color);
-
-      &:hover{
-        dolor: mix(black, invert($primary-color), 30%);
+      .menu-item {
+        border: none;
+        background-color: transparent;
+        color: $primary-color;
       }
     }
   }
@@ -94,11 +125,19 @@ main{
 main{
   .landing{
     background-color: $primary-color;
-    &__wrapper{
+    width: 100vw;
+    height: 100vh;
+
+    &__background-image{
+      height: 100%;
+      width: 100%;
       opacity: 0.8;
       background-image: url('../images/landing_hanoi.jpg');
       background-size: 100% 100%;
       filter: grayscale(30%)
+    }
+    &__wrapper{
+      @include wrapper()
     }
 
     &__content{
