@@ -89,18 +89,22 @@ body{
 
     &__right {
       margin-left: auto;
-    }
 
-    &__left, &__right .open {
-
-      :hover {
-        color: mix(white, $primary-color, 20%);
-      }
-
-      .menu-item {
+      li.menu-item {
         border: none;
         background-color: transparent;
         color: $primary-color;
+
+        &:hover {
+          color: mix(white, $primary-color, 20%);
+          opacity: 0.6;
+
+        }
+
+      }
+
+    &__left, &__right{
+
       }
     }
   }
