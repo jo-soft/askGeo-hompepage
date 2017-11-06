@@ -3,6 +3,7 @@
 @import "../../node_modules/font-awesome/scss/font-awesome";
 
 $headerHeight: 100px;
+$goldenRatio: 61.8%;
 
 body{
    color: $primary-color;
@@ -10,7 +11,7 @@ body{
 
 
 .main-nav {
-  @include navbar($layout: 'fluid');
+  @include navbar($fixed: true);
   height: $headerHeight;
   margin-bottom: 0;
   background-color: transparent;
@@ -61,7 +62,7 @@ body{
     }
   }
 
-  // overwrite default hover behavior
+  // overite default hover behavior
   & nav > ul> li {
     &.menu-item{
       &:before{
@@ -110,18 +111,22 @@ body{
   }
 }
 
-main{
+.main{
   // ensure main always lays begind the nav bar.
   position: absolute;
   z-index: -1;
-  // move main upwards behind the nav
-  margin-top: -$headerHeight;
 
-  .landing {
+  .screen-fit{
+    width: 100vw;
     height: 100vh;
-    &__wrapper {
-      width: 100vw;
-      height: 100%;
+  }
+
+  &_content{
+    &__container{
+      @include wrapper();
+      display: flex;
+      justify-content: flex-start;
+      flex-flow: column;
     }
   }
 }
@@ -140,10 +145,6 @@ main{
       background-size: 100% 100%;
       filter: grayscale(30%)
     }
-    &__wrapper{
-      @include wrapper()
-    }
-
     &__content{
       @include container();
       background-color: transparent;
@@ -176,4 +177,21 @@ main{
       }
     }
   }
+
+  .main_points{
+    @include row();
+    margin-top: 20vh;
+    display: flex;
+    &__item{
+      width: 33%;
+      height: calc(100vw * 0.618 / 3);
+      border: 1px solid black;
+    }
+  }
+}
+
+.main_content__teaser{
+  @include row();
+  justify-content: center;
+  margin-top: 15vh;
 }

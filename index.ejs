@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="description" content="<%= htmlWebpackPlugin.options.description %>">
 </head>
@@ -11,22 +12,23 @@
        <nav data-ks-navbar>
            <ul class="main-nav__left">
                <li> <img class="main-nav__logo" src="assets/images/logo.svg"> </li>
-               <li> <a id="title">Don't Panic!</a></li>
+               <li> <a data-xhref="landing" id="title">Don't Panic!</a></li>
            </ul>
 
            <ul class="main-nav__right"t>
                <li><i class="fa fa-bars" aria-hidden="true"></i>
                    <ul>
-                       <li><a>Home</a></li>
+                       <li><a data-xhref="landing">Home</a></li>
+                       <li><a data-xhref="main__teaser">The app</a></li>
                    </ul>
                </li>
            </ul>
        </nav>
    </header>
-   <main>
-       <section class="landing">
+   <main class="main">
+       <section data-xtarget="landing" class="landing">
            <div class="landing__background-image">
-               <div class="landing__wrapper">
+               <div class="main_content__container">
                    <div class="landing__content">
                        <div>
                            <h1>
@@ -42,11 +44,32 @@
                            <p>Coming 2018 for Androind and iOS.</p>
                        </div>
                        <div>
-                           <a>
+                           <a data-xhref="main__teaser">
                                <i class="fa fa-stack-2x fa-arrow-down" aria-hidden="true"></i>
                            </a>
                        </div>
                    </div>
+               </div>
+           </div>
+       </section>
+       <section data-xtarget="main__teaser" class="screen-fit x">
+           <div class="main_content__teaser">
+               <h1>
+                   What is it all about?
+               </h1>
+           </div>
+           <div class="main_points">
+               <div class="main_points__item">
+                   <i class="fa fa-question"></i>
+                   <h2>Explore</h2>
+               </div>
+               <div class="main_points__item">
+                   <i class="fa fa-map-marker"></i>
+                   <h2>Find</h2>
+               </div>
+               <div class="main_points__item">
+                   <i class="fa fa-globe"></i>
+                   <h2>Everywhere</h2>
                </div>
            </div>
        </section>

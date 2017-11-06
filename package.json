@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "scroll-direction": "^1.0.0",
+    "zenscroll": "^4.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
